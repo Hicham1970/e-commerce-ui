@@ -9,7 +9,7 @@ const Navbar = ()=> {
     <nav className="w-full flex items-center justify-between pb-4 border-b border-gray-200">
           {/* left */}
           <Link href="/" className="flex items-center tracking-wider">
-              <Image src="/logo.png" alt="TrendGh" width={360} height={36} className="w-6 h-6 md:w-9 md:h-9" />
+              <Image src="/Capt2.png" alt="TrendGh" width={360} height={36} className="w-6 h-6 md:w-9 md:h-9" />
               <p className=" hidden md:block text-md font-medium">
                   TrendGh
                   
