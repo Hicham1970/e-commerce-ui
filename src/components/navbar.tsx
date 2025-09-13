@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import SearchBar from './searchBar'
 import { Home, Bell, ShoppingCart } from 'lucide-react'
+import ShoppingCartIcon from './shoppingCartIcon'
 
 const Navbar = ()=> {
   return (
@@ -22,7 +23,7 @@ const Navbar = ()=> {
           <Home className="w-4 h-4 text-gray-400" />
         </Link >
         <Bell className="w-4 h-4 text-gray-400" />
-        <ShoppingCart className="w-4 h-4 text-gray-400" />
+        <ShoppingCartIcon /> 
         <Link href="/Login">
           Sign in
         </Link>
