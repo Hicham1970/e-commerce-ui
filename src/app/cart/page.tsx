@@ -6,7 +6,7 @@ import { CartItemsType } from "@/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
 const steps = [
   { id: 1, title: "Shopping cart" },
@@ -70,7 +70,7 @@ const cartItems: CartItemsType = [
   },
 ];
 
-const CartPage = () => {
+const CartContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [shippingForm, setShippingForm] = useState(null);
@@ -207,6 +207,14 @@ const CartPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const CartPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CartContent />
+    </Suspense>
   );
 };
 
