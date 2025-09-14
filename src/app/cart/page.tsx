@@ -73,7 +73,7 @@ const cartItems: CartItemsType = [
 const CartContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [shippingForm, setShippingForm] = useState(null);
+  const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
 
   const activeStep = parseInt(searchParams.get("step") || "1");
 
@@ -154,7 +154,7 @@ const CartContent = () => {
               </div>
             ))
           ) : activeStep === 2 ? (
-            <ShippingForm setShippingForm={setShippingForm} />
+            <ShippingForm setShippingForm = {setShippingForm} />
           ) : activeStep === 3 && shippingForm ? (
             <PaymentForm  />
           ) : (
