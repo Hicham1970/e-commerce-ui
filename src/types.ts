@@ -37,8 +37,18 @@ export type ShippingFormInputs = zod.infer<typeof ShippingFormSchema>
 
 export const PaymentFormSchema = zod.object({
     cardHolder: zod.string().min(3, "Card Holder is required !"),
-    cardNumber: zod.string().min(16, "Card Number is required !").max(16, "Card Number is required !"),
+    cardNumber: zod.string().min(16, "Card Number must have 16 digits minimum !").max(16, "Card Number must have 16 digits maximum !"),
     expirationDate: zod.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Expiration Date must be in the format MM/YY !"),
     cvv: zod.string().min(3, "cvv is required !").max(3, "cvv is required !"),
 })
 export type PaymentFormInputs = zod.infer<typeof PaymentFormSchema>
+
+
+export type CartStoreStateType = { cart: CartItemsType }
+
+export type CartStoreActionsType = {
+    addToCart: (product: CartType) => void;
+    removeFromCart: (product: CartType) => void;
+    clearCart: () => void;
+}
+
