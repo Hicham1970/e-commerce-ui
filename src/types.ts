@@ -44,7 +44,7 @@ export const PaymentFormSchema = zod.object({
 export type PaymentFormInputs = zod.infer<typeof PaymentFormSchema>
 
 
-export type CartStoreStateType = { cart: CartItemsType }
+export type CartStoreStateType = { cart: CartItemsType, hasHydrated: boolean }
 
 export type CartStoreActionsType = {
     addToCart: (product: CartType) => void;

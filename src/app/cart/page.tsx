@@ -2,6 +2,7 @@
 
 import PaymentForm from "@/components/paymentForm";
 import ShippingForm from "@/components/shippingForm";
+import useCartStore from "@/stores/cartStore";
 import { CartItemsType, ShippingFormInputs } from "@/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
@@ -14,61 +15,61 @@ const steps = [
   { id: 3, title: "Payment Method" },
 ];
 
-const cartItems: CartItemsType = [
-  {
-    id: 1,
-    name: "Adidas CoreFit T-Shirt",
-    shortDescription:
-      "Breathable and lightweight T-shirt designed for optimal comfort during workouts.",
-    description:
-      "The Adidas CoreFit T-Shirt features moisture-wicking fabric that keeps you dry and comfortable. Its ergonomic design ensures a perfect fit, making it ideal for both casual wear and intense training sessions.",
-    price: 39.9,
-    sizes: ["s", "m", "l", "xl", "xxl"],
-    colors: ["gray", "purple", "green"],
-    images: {
-      gray: "/products/1g.png",
-      purple: "/products/1p.png",
-      green: "/products/1gr.png",
-    },
-    quantity: 1,
-    selectedSize: "m",
-    selectedColor: "green",
-  },
-  {
-    id: 2,
-    name: "Puma Ultra Warm Zip",
-    shortDescription:
-      "High-performance zip-up jacket providing exceptional warmth and style.",
-    description:
-      "The Puma Ultra Warm Zip jacket combines advanced insulation technology with a sleek design. Perfect for chilly mornings or evening runs, it offers comfort without compromising on mobility.",
-    price: 59.9,
-    sizes: ["s", "m", "l", "xl"],
-    colors: ["gray", "green"],
-    images: { gray: "/products/2g.png", green: "/products/2gr.png" },
-    quantity: 1,
-    selectedSize: "xl",
-    selectedColor: "gray",
-  },
-  {
-    id: 3,
-    name: "Nike Air Essentials Pullover",
-    shortDescription:
-      "Classic pullover with soft fabric for everyday comfort and style.",
-    description:
-      "Nike Air Essentials Pullover is crafted from premium cotton blend material, providing warmth and breath-ability. Its timeless design makes it a versatile addition to your wardrobe.",
-    price: 69.9,
-    sizes: ["s", "m", "l"],
-    colors: ["green", "blue", "black"],
-    images: {
-      green: "/products/3gr.png",
-      blue: "/products/3b.png",
-      black: "/products/3bl.png",
-    },
-    quantity: 1,
-    selectedSize: "s",
-    selectedColor: "black",
-  },
-];
+// const cartItems: CartItemsType = [
+//   {
+//     id: 1,
+//     name: "Adidas CoreFit T-Shirt",
+//     shortDescription:
+//       "Breathable and lightweight T-shirt designed for optimal comfort during workouts.",
+//     description:
+//       "The Adidas CoreFit T-Shirt features moisture-wicking fabric that keeps you dry and comfortable. Its ergonomic design ensures a perfect fit, making it ideal for both casual wear and intense training sessions.",
+//     price: 39.9,
+//     sizes: ["s", "m", "l", "xl", "xxl"],
+//     colors: ["gray", "purple", "green"],
+//     images: {
+//       gray: "/products/1g.png",
+//       purple: "/products/1p.png",
+//       green: "/products/1gr.png",
+//     },
+//     quantity: 1,
+//     selectedSize: "m",
+//     selectedColor: "green",
+//   },
+//   {
+//     id: 2,
+//     name: "Puma Ultra Warm Zip",
+//     shortDescription:
+//       "High-performance zip-up jacket providing exceptional warmth and style.",
+//     description:
+//       "The Puma Ultra Warm Zip jacket combines advanced insulation technology with a sleek design. Perfect for chilly mornings or evening runs, it offers comfort without compromising on mobility.",
+//     price: 59.9,
+//     sizes: ["s", "m", "l", "xl"],
+//     colors: ["gray", "green"],
+//     images: { gray: "/products/2g.png", green: "/products/2gr.png" },
+//     quantity: 1,
+//     selectedSize: "xl",
+//     selectedColor: "gray",
+//   },
+//   {
+//     id: 3,
+//     name: "Nike Air Essentials Pullover",
+//     shortDescription:
+//       "Classic pullover with soft fabric for everyday comfort and style.",
+//     description:
+//       "Nike Air Essentials Pullover is crafted from premium cotton blend material, providing warmth and breath-ability. Its timeless design makes it a versatile addition to your wardrobe.",
+//     price: 69.9,
+//     sizes: ["s", "m", "l"],
+//     colors: ["green", "blue", "black"],
+//     images: {
+//       green: "/products/3gr.png",
+//       blue: "/products/3b.png",
+//       black: "/products/3bl.png",
+//     },
+//     quantity: 1,
+//     selectedSize: "s",
+//     selectedColor: "black",
+//   },
+// ];
 
 const CartContent = () => {
   const searchParams = useSearchParams();
@@ -76,6 +77,8 @@ const CartContent = () => {
   const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
 
   const activeStep = parseInt(searchParams.get("step") || "1");
+  const {cart, removeFromCart} = useCartStore();
+
 
   return (
     <div className="flex flex-col gap-8 items-center justify-center mt-12">
@@ -115,9 +118,9 @@ const CartContent = () => {
         {/* Steps */}
         <div className="w-full lg:w-7/12 shadow-lg border-1 border-gray-100 p-4 rounded-lg flex flex-col gap-8 ">
           {activeStep === 1 ? (
-            cartItems.map((item) => (
+            cart.map((item) => (
               // Single cart item
-              <div className="flex justify-between items-center py-4" key={item.id}>
+              <div className="flex justify-between items-center py-4" key={item.id+item.selectedSize+item.selectedColor}>
                 {/* Image & Details */}
                 <div className=" flex gap-8">
                   {/* Image */}
@@ -148,7 +151,9 @@ const CartContent = () => {
                   </div>
                 </div>
                 {/* Delete Button */}
-                <button className="rounded-full w-8 h-8 bg-red-100  text-red-400 flex items-center justify-center cursor-pointer hover:bg-red-200 transition-all duration-300 ">
+                <button
+                  onClick={()=> removeFromCart(item)}
+                  className="rounded-full w-8 h-8 bg-red-100  text-red-400 flex items-center justify-center cursor-pointer hover:bg-red-200 transition-all duration-300 ">
                   <Trash2 className="w-3 h-3" />
                 </button>
               </div>
@@ -171,7 +176,7 @@ const CartContent = () => {
               <p className=" text-gray-500">Subtotal</p>
               <p className=" font-medium">
                 $
-                {cartItems
+                {cart
                   .reduce((acc, item) => acc + item.price * item.quantity, 0)
                   .toFixed(2)}
               </p>
@@ -189,7 +194,7 @@ const CartContent = () => {
               <p className=" text-gray-800 font-semibold">Total</p>
               <p className=" font-medium">
                 $
-                {cartItems
+                {cart
                   .reduce((acc, item) => acc + item.price * item.quantity, 0)
                   .toFixed(2)}
               </p>
