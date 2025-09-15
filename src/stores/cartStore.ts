@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { CartStoreActionsType, CartStoreStateType } from '../types'; 
 import {persist, createJSONStorage} from "zustand/middleware"; 
-import { Stardos_Stencil } from 'next/font/google';
+
 
 const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
     persist(
@@ -23,7 +23,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
                     return {
                         cart: [...state.cart, {
                             ...product,
-                            quantity: 1,
+                            quantity: product.quantity || 1,
                             selectedSize: product.selectedSize,
                             selectedColor: product.selectedColor
                     }] }

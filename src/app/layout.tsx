@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Hg e-commerce-app",
-  description: "e-commerce app built with Next.js and Tailwind CSS",
+  description: "Hg trend is the best place for the best clothes",
 };
 
 export default function RootLayout({
