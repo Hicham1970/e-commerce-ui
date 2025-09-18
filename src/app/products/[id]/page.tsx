@@ -22,14 +22,14 @@ const product: ProductType = {
     },
 }; 
 
-// export const generateMetadata = async ({ params }: { params: { id: string } }) => {
-//     // TODO : get the product from the DB
-//     // Temporary
-//     return {
-//         title: product.name,
-//         description: product.description,
-//     }
-// }
+export const generateMetadata = async ({ params }: { params: { id: string } }) => {
+    // TODO : get the product from the DB
+    // Temporary
+    return {
+        title: product.name,
+        description: product.description,
+    }
+}
 
 const ProductPage = async ({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ color: string; size: string }> }) => {
 

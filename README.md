@@ -97,7 +97,7 @@ JavaScript
   The library offers extensive customization options for styling, positioning, and behavior of toasts. You can configure global options on the `ToastContainer` or pass options directly to individual `toast` calls.
 * **Advanced Features:**
 
-  React-Toastify also includes advanced features like limiting the number of displayed toasts, dark mode support, colored themes, and integration with Promises for displaying loading and success/error states for asynchronous operations. It also provides hooks like `onOpen` and `onClose` for custom logic when toasts appear or disappear.
+  React-Toastify also includes advanced features like limiting the number of displayed toasts, darkmode support, colored themes, and integration with Promises for displaying loading and success/error states for asynchronous operations. It also provides hooks like `onOpen` and `onClose` for custom logic when toasts appear or disappear.
 
 
 ## -Zustand/middleware:
